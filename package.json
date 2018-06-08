@@ -1,0 +1,21 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chart.js": "^2.4.0",
+    "cheerio-master": "^0.22.0",
+    "express": "^4.14.0",
+    "hapi": "^16.1.0",
+    "request-master": "^2.79.1",
+    "serialport": "^4.0.7",
+    "socket.io": "^1.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

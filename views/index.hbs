@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+          <style type="text/css">
+          .box-1{float:left}
+          #frame{width:300px ;background:#AAAAAA}
+
+         .chart-container {
+          position: relative;
+          margin: auto;
+          height: 80vh;
+          width: 80vw;
+          }
+        </style>
+        <script sr
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"> </script>
+        <script src="//cdn.jsdelivr.net/raphael/2.1.2/raphael-min.js"></script>
+        <script src="//cdn.jsdelivr.net/justgage/1.0.1/justgage.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+        <title>test arduino</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+              
+       
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        
+        
+     
+    </head>
+      
+<body>
+
+
+
+
+<div class="container">
+  <div class="alert alert-warning alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <strong>คำเตือน!</strong> กรุณาใช้หน้าจอในเเนวนอนหากท่านใช้งานบน สมาร์ทโฟนหรือเเทปเล็ต
+  </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!--<img src="Entypo+\Entypo+ Social Extension\baidu.svg" width="50" height="50">-->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+ <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">เรียลไทม์</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/light">ความเข้มเเสง</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/temp">อุณหภูมิ</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/humid">ความชื้น</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/soil">ความชื้นในดิน</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/rain">ปริมาณฝนต่อวัน</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/dust">ความหนาเเน่นของฝุ่น</a>
+      </li>
+    </ul>
+</nav>
+
+
+        
+   <div class="jumbotron">      
+<div class=".container-fluid">
+<div class="row">
+  <div class="col-lg-3">
+     <div class="alert alert-success" role="alert"> <p id="light"></p></div>
+    <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <div id="gauge" class="200x160px" ></div>
+
+       <ul class="nav justify-content-center">
+  <li class="nav-item">
+  <li class="list-group-item list-group-item-primary">Analog-Output</li>
+   
+  </li>
+</ul><br>
+  </li>
+</ul>
+    
+   </div>
+  <div class="col-lg-3">
+     <div class="alert alert-success" role="alert"> <p id="temp"></p></div>
+        <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <div id="gauge2" class="200x160px" ></div>
+          <ul class="nav justify-content-center">
+  <li class="nav-item">
+       <script>temp();</script>
+       <script>humid();</script>
+       <script>soil();</script>
+       <script>rain();</script>
+       <script>dust();</script>
+       <script>light();</script>
+      
+  
+  <li class="list-group-item list-group-item-primary">องศาเซลเซียส</li>
+   
+  </li>
+
+</ul><br>
+  </li>
+</ul>
+    </div>
+    <div class="col-lg-3">
+      <div class="alert alert-success" role="alert"> <p id="humid"></p></div>
+       <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <div id="gauge3" class="200x160px" ></div>
+          <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <li class="list-group-item list-group-item-primary">เปอร์เซ็นต์</li>
+   
+  </li>
+</ul><br>
+  </li>
+</ul>
+  </div>
+       <div class="col-lg-3">
+         <div class="alert alert-success" role="alert"> <p id="soil"></p></div>
+        <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <div id="gauge4" class="200x160px" ></div>
+          <ul class="nav justify-content-center">
+  <li class="nav-item">
+ <li class="list-group-item list-group-item-primary">Analog-Output</li>
+   
+  </li>
+</ul><br>
+  </li>
+</ul>
+  </div>
+
+</div>
+
+<div class="row">
+      <div class="col-lg-3">
+        <div class="alert alert-success" role="alert"> <p id="rain"></p></div>
+      <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <div id="gauge5" class="200x160px" ></div>
+          <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <li class="list-group-item list-group-item-primary">ไม่มีหน่วยวัด</li>
+   
+  </li>
+</ul><br>
+  </li>
+</ul>
+  </div>
+
+    <div class="col-lg-3">
+      <div class="alert alert-success" role="alert"> <p id="dust"></p></div>
+        <ul class="nav justify-content-center">
+  <li class="nav-item">
+   <div id="gauge6" class="200x160px" ></div>
+          <ul class="nav justify-content-center">
+  <li class="nav-item">
+  
+    <li class="list-group-item list-group-item-primary">Mg/ลูกบาศก์เมตร</li>
+  </li>
+</ul><br>
+  </li>
+</ul>
+   </div>
+
+       <div class="col-lg-6">
+         <div style="height: 80%; width:100%;">
+<div class="jumbotron">
+  <h3 class="display-3">Weather-Station</h3>
+  <p class="lead">Decision Support Systems for Agriculture. New options for farmers.</p>
+  <hr class="my-4">
+  <p class="lead">Developed by Thanapong.         Copyright@2017</p>
+  
+</div>
+</div>
+   </div>
+
+
+   </div>
+
+
+</div>
+   </div>
+
+
+
+
+
+
+      <script>
+        var gageValue = 0;
+            var g = new JustGage({
+              id: "gauge",
+              value: gageValue,
+              min: 0,
+              max: 1023,
+              title: "ปริมาณความเข้มของเเสง"
+              });
+        
+        var gageValue2 = 0;
+            var g2 = new JustGage({
+              id: "gauge2",
+              value: gageValue2,
+              min: 0,
+              max: 45,
+              title: "อุณหภูมิ"
+            });
+        var gageValue3 = 0;
+            var g3 = new JustGage({
+              id: "gauge3",
+              value: gageValue3,
+              min: 0,
+              max: 100,
+              title: "ความชื้นในอากาศ"
+            });
+        var gageValue4 = 0;
+            var g4 = new JustGage({
+              id: "gauge4",
+              value: gageValue4,
+              min: 0,
+              max: 1024,
+              title: "ความชื้นในดิน"
+            });
+            
+        var gageValue5 = 0;
+            var g5 = new JustGage({
+              id: "gauge5",
+              value: gageValue5,
+              min: 0,
+              max: 1,
+              title: "สภาพฝน"
+            });
+            
+        var gageValue6 = 0;
+            var g6 = new JustGage({
+              id: "gauge6",
+              value: gageValue6,
+              min: 0,
+              max: 1,
+              title: "ความหนาเเน่นของฝุ่นละออง"
+            });
+        </script>
+
+        <script>
+                var socket = io();
+                  socket.on('test',function(dato){
+                        g.refresh(dato.valor);
+                        //console.log(dato.valor);
+                        light(dato.valor);
+                  });
+                  socket.on('test2',function(dato2){
+                        g2.refresh(dato2.valor);
+                        //console.log(dato2.valor);
+                       temp(dato2.valor);
+
+                  });
+                  socket.on('test3',function(dato3){
+                        g3.refresh(dato3.valor);
+                        //console.log(dato3.valor);
+                       humid(dato3.valor);
+                  });
+                  socket.on('test4',function(dato4){
+                        g4.refresh(dato4.valor);
+                        //console.log(dato4.valor);
+                        soil(dato4.valor);
+                  });
+                  
+                  socket.on('test5',function(dato5){
+                        g5.refresh(dato5.valor);
+                        //console.log(dato5.valor);
+                        rain(dato5.valor);
+                  });                                    
+                  socket.on('test6',function(dato6){
+                        g6.refresh(dato6.valor.toFixed(2));
+                        //console.log(dato6.valor);
+                        dust(dato6.valor);
+                  });
+  function light(f) {
+          
+          var light;
+          
+          if (f >= 90) {
+            light = "ความชื้นสัมพันธ์ : สูงมาก";
+           } 
+           else if (f > 60){
+            light = "ความชื้นสัมพันธ์ : สูง";
+           }  
+           else if (f == 60){
+            light = "ความชื้นสัมพันธ์ : พอดี";
+           }          
+           else if(f < 60){
+            light = "ความชื้นสัมพันธ์ : ต่ำ";
+           }   
+        document.getElementById("light").innerHTML = light;
+
+}
+  function temp(a) {
+          
+          var temp;
+          
+          if (a >= 40) {
+            temp = "อุณหภูมิ : ร้อนจัด";
+           } 
+           else if (a >= 35){
+            temp = "อุณหภูมิ : ร้อน";
+           }  
+           else if (a >= 30){
+            temp = "อุณหภูมิ : ค่อนข้างร้อน";
+           }          
+           else if (a >= 23){
+            temp = "อุณหภูมิ : ค่อนข้างเย็น";
+           }       
+           else if (a >= 18){
+            temp = "อุณหภูมิ : เย็น";
+           }    
+           else if (a >= 16){
+            temp = "อุณหภูมิ : ค่อนข้างหนาว";
+           }   
+           else if(a >= 8){
+            temp = "อุณหภูมิ : หนาว";
+           }   
+        document.getElementById("temp").innerHTML = temp;
+
+}
+  function humid(b) {
+          
+          var humid;
+          
+          if (b >= 90) {
+            humid = "ความชื้นสัมพันธ์ : สูงมาก";
+           } 
+           else if (b > 60){
+            humid = "ความชื้นสัมพันธ์ : สูง";
+           }  
+           else if (b == 60){
+            humid = "ความชื้นสัมพันธ์ : พอดี";
+           }          
+           else if(b < 60){
+            humid = "ความชื้นสัมพันธ์ : ต่ำ";
+           }   
+        document.getElementById("humid").innerHTML = humid;
+
+}
+  function soil(c) {
+          
+          var soil;
+          
+          if (c >= 700) {
+            soil = "ความชื้นในดิน : เเห้ง";
+           } 
+           else if (c >= 300){
+            soil = "ความชื้นในดิน : มีความชุ่มชื้น";
+           }  
+           else if (c >= 0){
+            soil = "ความชื้นในดิน : เปียก";
+           }          
+
+        document.getElementById("soil").innerHTML = soil;
+
+} function rain(d) {
+          
+          var rain;
+          
+          if (d == 1) {
+            rain= "สภาพฝน : ตก";
+           } 
+           else {
+            rain = "สภาพฝน : ไม่ตก";
+           }  
+           
+        document.getElementById("rain").innerHTML = rain;
+
+}
+ function dust(e) {
+          
+          var dust;
+          
+          if (e >= 0.33) {
+            dust= "ความหนาเเน่นของฝุ่นละออง : สูง";
+           } 
+           else  {
+            dust = "ความหนาเเน่นของฝุ่นละออง : ต่ำ";
+           }  
+           
+        document.getElementById("dust").innerHTML = dust;
+
+}
+
+        </script>
+
+  </body>
+</html>
